@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>view it</title>
-</head>
-<body>
-	{% for x in mylist %}
-		<p>{{x}}</p>
-	{% endfor %}
+{% extends "todolist/main.html" %}
+{% block title %}My Lists{% endblock %}
 
-</body>
-</html>
+{% block content %}
+	{% for x in mylist %}
+		<p>><a href="/view/{{x.id}}">{{x}}</a></p>
+	{% endfor %}
+{% endblock %}

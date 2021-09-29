@@ -13,4 +13,4 @@ class item(models.Model):
 	is_complete = models.BooleanField()
 
 	def __str__(self):
-		return self.name
+		return self.text
