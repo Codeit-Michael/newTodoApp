@@ -5,4 +5,10 @@
 	{% for x in mylist %}
 		<p>><a href="/view/{{x.id}}">{{x}}</a></p>
 	{% endfor %}
+	<br>
+	<form method="post" action="{% url 'view' %}">
+		{% csrf_token %}
+		{{form}}
+		<button type="submit">enter</button>
+	</form>
 {% endblock %}

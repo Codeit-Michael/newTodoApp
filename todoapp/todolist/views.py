@@ -5,17 +5,15 @@ from .forms import todoForm
 # Create your views here.
 def view(request):
 	mylist = todo.objects.all()
-	return render(request, 'todolist/view.html', {'mylist':mylist})
-
-def new(request):
 	myForm = todoForm()
 	if request.method == 'POST':
 		myForm = todoForm(request.POST)
 		if myForm.is_valid():
 			myForm.save()
 			return redirect('view')
+	context = {'mylist':mylist ,'form':myForm}
 
-	return render(request, 'todolist/new.html', {'form':myForm})
+	return render(request, 'todolist/view.html', context)
 
 def list(request,id):
 	mylist = todo.objects.get(id=id)
