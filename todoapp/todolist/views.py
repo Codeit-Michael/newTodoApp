@@ -22,10 +22,10 @@ def list(request,id):
 	if request.method == 'POST':
 		if request.POST.get('save'):
 			for item in mylist.item_set.all():
-				if response.POST.get(f'c{item.id}') == clicked:
-					item.is_complete == True
+				if request.POST.get("c" + str(item.id)) == 'clicked':
+					item.is_complete = True
 				else:
-					item.is_complete == False
+					item.is_complete = False
 				item.save()
 
 		elif request.POST.get('addItem'):

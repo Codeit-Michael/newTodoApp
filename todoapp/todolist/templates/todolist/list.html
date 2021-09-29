@@ -2,18 +2,21 @@
 {% block title %}{{mylist.name}}{% endblock %}
 
 {% block content %}
-	{% for x in mylist.item_set.all %}
-		{% if x.is_complete == True %}
-			<input type="checkbox" value="clicked" name="c{{x.id}}" checked>
-		{% else %}
-			<input type="checkbox" value="clicked" name="c{{x.id}}">
-		{% endif %}
+	<form method="post" action='#'>
+		{% csrf_token %}
+		{% for x in mylist.item_set.all %}
+			{% if x.is_complete == True %}
+				<input type="checkbox" value="clicked" name="c{{x.id}}" checked>
+			{% else %}
+				<input type="checkbox" value="clicked" name="c{{x.id}}">
+			{% endif %}
 
-		<input type="text" value="{{x.text}}">
-		<br>
-	{% endfor %}
-	<button type="submit" name="save" value="save">Save Changes</button>
+			<input type="text" value="{{x.text}}">
+			<br>
+		{% endfor %}
+		<button type="submit" name="save" value="save">Save Changes</button>
 
-	<input type="text" name="newItem">
-	<button type="submit" name="addItem" value="addItem">Add Item</button>
+		<input type="text" name="newItem">
+		<button type="submit" name="addItem" value="addItem">Add Item</button>
+	</form>
 {% endblock %}
