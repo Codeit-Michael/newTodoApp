@@ -4,14 +4,13 @@
 {% block content %}
 	<form method="post" action='#'>
 		{% csrf_token %}
-		{% for x in mylist.item_set.all %}
-			{% if x.is_complete == True %}
-				<input type="checkbox" value="clicked" name="c{{x.id}}" checked>
+		{% for item in mylist.item_set.all %}
+			{% if item.is_complete == True %}
+				<input type="checkbox" value="clicked" name="c{{item.id}}" checked>
 			{% else %}
-				<input type="checkbox" value="clicked" name="c{{x.id}}">
+				<input type="checkbox" value="clicked" name="c{{item.id}}">
 			{% endif %}
-
-			<input type="text" value="{{x.text}}">
+			<input type="text" value="{{item.text}}" name="i{{item.text}}">
 			<br>
 		{% endfor %}
 		<button type="submit" name="save" value="save">Save Changes</button>
