@@ -12,15 +12,17 @@ def view(request):
 			myForm.save()
 			return redirect('view')
 	context = {'mylist':mylist ,'form':myForm}
-
 	return render(request, 'todolist/view.html', context)
 
+
+## IMPORTANT REMINDER: GET THE ITEMS FIRST THEN DELETE 
 def list(request,id):
 	mylist = todo.objects.get(id=id)
 	if request.method == 'POST':
 		if request.POST.get('save'):
 			for item in mylist.item_set.all():
-				item.text = request.POST.get(f'i{item.text}')
+				if item.text != request.POST.get(f'i{item.text}'):
+					item.text = request.POST.get(f'i{item.text}')
 				if request.POST.get(f'c{item.id}') == 'clicked':
 					item.is_complete = True
 				else:
@@ -35,3 +37,12 @@ def list(request,id):
 				print('INVALID')
 
 	return render(request, 'todolist/list.html', {'mylist':mylist})
+
+
+def deleteList(request):
+	my_item = request.GET.get('delThis')
+	delete_item = todo.objects.get(id=int(my_item)).delete()
+	return redirect('view')
+
+def deleteItem(request):
+	pass
