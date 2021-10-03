@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+xfrom django.shortcuts import render,redirect
 from .models import todo
 from .forms import todoForm
 
@@ -14,6 +14,7 @@ def view(request):
 	context = {'mylist':mylist ,'form':myForm}
 	return render(request, 'todolist/view.html', context)
 
+# bobo 
 ## IMPORTANT REMINDER: GET THE ITEMS FIRST THEN DELETE 
 def list(request,id):
 	mylist = todo.objects.get(id=id)
@@ -35,9 +36,8 @@ def list(request,id):
 			else:
 				print('INVALID')
 
-		buts = request.POST.get('delThis')
-		if buts:
-			print(buts)
+		elif request.POST.get('delThis'):
+			print(request.POST.get('delThis'))
 
 	return render(request, 'todolist/list.html', {'mylist':mylist})
 
@@ -47,7 +47,9 @@ def deleteList(request):
 	deletelist = todo.objects.get(id=int(mylist)).delete()
 	return redirect('view')
 
-def delItem(request,id):
-	bob = request.GET.get('delThis')
-	print(bobo)
-	return redirect('list')
+def _deleteItem(id):
+	# my_item = request.GET.get('delThis')
+	# print(my_item)
+	# return redirect('list')
+	my_item = id
+	print(id)
