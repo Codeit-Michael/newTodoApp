@@ -1,4 +1,5 @@
 {% extends "todolist/main.html" %}
+
 {% block title %}{{mylist.name}}{% endblock %}
 
 {% block content %}
@@ -12,13 +13,10 @@
 			{% endif %}
 			<input type="text" value="{{item.text}}" name="i{{item.text}}">
 			<button type="submit" name="delThis" value="{{item.id}}" >tangina</button>
-			<p>{{item.id}}</p>
-
-			</form>
 			<br>
 		{% endfor %}
+			<br>
 		<button type="submit" name="save" value="save">Save Changes</button>
-
 		<input type="text" name="newItem">
 		<button type="submit" name="addItem" value="addItem">Add Item</button>
 	</form>

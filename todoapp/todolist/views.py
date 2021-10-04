@@ -35,9 +35,8 @@ def list(request,id):
 			else:
 				print('INVALID')
 
-		buts = request.POST.get('delThis')
-		if buts:
-			print(buts)
+		elif request.POST.get('delThis'):
+			print(request.POST.get('delThis'))
 
 	return render(request, 'todolist/list.html', {'mylist':mylist})
 
@@ -46,8 +45,3 @@ def deleteList(request):
 	mylist = request.GET.get('delThis')
 	deletelist = todo.objects.get(id=int(mylist)).delete()
 	return redirect('view')
-
-def delItem(request,id):
-	bob = request.GET.get('delThis')
-	print(bobo)
-	return redirect('list')
