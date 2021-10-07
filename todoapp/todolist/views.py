@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from .models import todo
-from .forms import todoForm
+from .forms import todoForm,CreateUserForm
 
 # Create your views here.
 def view(request):
@@ -11,8 +11,11 @@ def view(request):
 		if myForm.is_valid():
 			myForm.save()
 			return redirect('view')
+
 	context = {'mylist':mylist ,'form':myForm}
+
 	return render(request, 'todolist/view.html', context)
+
 
 ## IMPORTANT REMINDER: GET THE ITEMS FIRST THEN DELETE 
 def list(request,id):
@@ -39,7 +42,26 @@ def list(request,id):
 			item_index = request.POST.get('delThis')
 			mylist.item_set.get(id=item_index).delete()
 
-	return render(request, 'todolist/list.html', {'mylist':mylist})
+	context = {'mylist':mylist}
+
+	return render(request, 'todolist/list.html', context)
+
+
+def signup(request):
+	user_form = CreateUserForm()
+	if request.method == 'POST':
+		user_form = CreateUserForm(request.POST)
+		if user_form.is_valid():
+			user_form.save()
+			return redirect('login')
+
+	context = {'form':user_form}
+
+	return render(request, 'todolist/signup.html', context)
+
+
+def login(request):
+	return render(request, 'todolist/login.html')
 
 
 def deleteList(request):
