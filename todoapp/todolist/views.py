@@ -36,7 +36,8 @@ def list(request,id):
 				print('INVALID')
 
 		elif request.POST.get('delThis'):
-			print(request.POST.get('delThis'))
+			item_index = request.POST.get('delThis')
+			mylist.item_set.get(id=item_index).delete()
 
 	return render(request, 'todolist/list.html', {'mylist':mylist})
 
