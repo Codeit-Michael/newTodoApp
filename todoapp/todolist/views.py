@@ -1,8 +1,12 @@
 from django.shortcuts import render,redirect
 from .models import todo
 from .forms import todoForm,CreateUserForm
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required(login_url='login')
 def view(request):
 	mylist = todo.objects.all()
 	myForm = todoForm()
@@ -16,8 +20,8 @@ def view(request):
 
 	return render(request, 'todolist/view.html', context)
 
-
-## IMPORTANT REMINDER: GET THE ITEMS FIRST THEN DELETE 
+ 
+@login_required(login_url='login')
 def list(request,id):
 	mylist = todo.objects.get(id=id)
 	if request.method == 'POST':
@@ -48,20 +52,44 @@ def list(request,id):
 
 
 def signup(request):
-	user_form = CreateUserForm()
-	if request.method == 'POST':
-		user_form = CreateUserForm(request.POST)
-		if user_form.is_valid():
-			user_form.save()
-			return redirect('login')
+	if request.user.is_authenticated:
+		return redirect('view')
 
-	context = {'form':user_form}
+	else:
+		user_form = CreateUserForm()
+		if request.method == 'POST':
+			user_form = CreateUserForm(request.POST)
+			if user_form.is_valid():
+				user_form.save()
+				user_name = user_form.cleaned_data.get('username')
+				messages.success(request,f'user "{user_name}" is successfully created!!')
+				return redirect('login')
+
+		context = {'form':user_form}
 
 	return render(request, 'todolist/signup.html', context)
 
 
-def login(request):
-	return render(request, 'todolist/login.html')
+def signin(request):
+	if request.user.is_authenticated:
+		return redirect('view')
+
+	else:
+		if request.method == 'POST':
+			name = request.POST.get('name')
+			password = request.POST.get('pass') 
+			user = authenticate(request, username=name, password=password)
+			if user is not None:
+				login(request,user)
+				return redirect('view')
+
+	return render(request, 'todolist/signin.html')
+
+
+def signout(request):
+	logout(request)
+	messages.success(request, 'User successfully logged out')
+	return redirect('signin')
 
 
 def deleteList(request):

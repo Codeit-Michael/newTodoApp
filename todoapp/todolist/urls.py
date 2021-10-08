@@ -6,4 +6,6 @@ urlpatterns = [
 	path('view/<int:id>/', views.list, name='list'),
 	path('delList/', views.deleteList, name='delList'),
 	path('signup/', views.signup, name='signup'),
+	path('', views.signin, name='signin'),
+	path('signout/', views.signout, name='signout'),
 ]

@@ -1,0 +1,19 @@
+{% extends "todolist/main.html" %}
+{% block title %}Log in{% endblock %}
+
+{% block content %}
+	<h1>Log In</h1>
+	<form method="post" action="">
+		{% csrf_token %}
+		<input type="text" name="name" placeholder="Enter Username...">
+		<input type="text" name="pass" placeholder="Enter Password...">
+		<button type="submit">Login</button>
+	</form>
+
+	{% for message in messages %}
+		<p>{{message}}</p>
+	{% endfor %}
+
+	<p>Register new account <a href="{% url 'signup' %}">here</a></p>
+
+{% endblock %}

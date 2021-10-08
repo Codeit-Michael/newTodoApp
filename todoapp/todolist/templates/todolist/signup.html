@@ -2,10 +2,15 @@
 {% block title %}Sign In{% endblock %}
 
 {% block content %}
+	<h1>Sign Up</h1>
+
 	<form method="post" action="">
+		{% csrf_token %}
 		{% for attribute in form %}
 			{{attribute.label}} {{attribute}}<br>
 		{% endfor %}
 		<button type="submit">Register Account</button>
 	</form>
+
+	<p>Login your account <a href="{% url 'signin' %}">here</a></p>
 {% endblock %}
