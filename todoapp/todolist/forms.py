@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class todoForm(ModelForm):
 	class Meta:
 		model = todo
-		fields = '__all__'
+		fields = ['name']
 
 class CreateUserForm(UserCreationForm):
 	class Meta:

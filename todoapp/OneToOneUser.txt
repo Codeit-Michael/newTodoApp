@@ -1,0 +1,13 @@
+## Making one to one relationship for each user 
+
+Import
+-First, we need to import the User method in our models.py
+	from django.contrib.auth.models import User
+
+-Next, on the model/s you choose to have an individual object relationship for each 
+user, add:
+	class todo(models.Model):
+		user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+		## the rest of code ##
+
+-After that, you should migrate it. If it can't be done, delete your db and migration folder's files except __init__.py
