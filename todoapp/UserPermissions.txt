@@ -1,0 +1,47 @@
+## Making User role based permission and authentication
+
+Making our own decorator
+-Create a decorators.py where we put our code and make our own function decorator. What is a decorator? a function takes another function to as an args. On your decorators.py, type:
+
+	from django.shortcuts import redirect
+
+	def unauthenticated_user(views_func):
+		def wrapper_func(request, *args, **kwargs):
+				if request.user.is_authenticated:
+					return redirect('view')
+				else:
+					return views_func(request, *args, **kwargs)
+		return wrapper_func
+
+-This decorator replaces our code on signin() and signup() that questions about if user is authenticated, it redirects you on home page instead to login page.
+
+-Now on our views.py, import the decorator we make:
+
+	from .decorators import unauthenticated_user
+
+-Next, above the signin() and signup(), type @unauthenticated_user like:
+	
+	@unauthenticated_user
+	def signin(request):
+		## rest of code
+
+	@unauthenticated_user
+	def signup(request):
+		## rest of code
+
+
+## Making one to one relationship for each user 
+
+Import
+-First, we need to import the User method in our models.py
+	from django.contrib.auth.models import User
+
+-Next, on the model/s you choose to have an individual object relationship for each 
+user, add:
+	class todo(models.Model):
+		user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+		## the rest of code ##
+
+-After that, you should migrate it. If it can't be done, delete your db and migration folder's files except __init__.py
+
+### LEARN ROLES AND PERMISSION FIRST BEFORE THE One to One relationship ###
