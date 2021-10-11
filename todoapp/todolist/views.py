@@ -10,7 +10,8 @@ from .decorators import unauthenticated_user
 # Create your views here.
 @login_required(login_url='signin')
 def view(request):
-	mylist = todo.objects.all()
+	# if request.user.todo.objects.all():
+	mylist = request.user.todo.objects.all()
 	myForm = todoForm()
 	if request.method == 'POST':
 		myForm = todoForm(request.POST)
@@ -25,7 +26,7 @@ def view(request):
  
 @login_required(login_url='signin')
 def list(request,id):
-	mylist = todo.objects.get(id=id)
+	mylist = request.user.todo.objects.get(id=id)
 	if request.method == 'POST':
 		if request.POST.get('save'):
 			for item in mylist.item_set.all():
