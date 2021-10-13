@@ -30,11 +30,6 @@ Making our own decorator
 		## rest of code
 
 
-###								###
-	LEARN ABOUT DJANGO GROUPS
-###								###
-
-
 ## Making one to one relationship for each user 
 
 Import
