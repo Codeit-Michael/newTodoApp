@@ -23,7 +23,9 @@ def view(request):
 
 	return render(request, 'todolist/view.html', context)
 
- 
+
+### NOTE: REMAKE YOUR USER CHANGES IN VIEW, NOT IN LIST
+
 @login_required(login_url='signin')
 def list(request,id):
 	mylist = request.user.todo.objects.get(id=id)
