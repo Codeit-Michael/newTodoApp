@@ -12,6 +12,10 @@ from django.contrib.auth.models import User
 """
 	NOW I HOPE WE UNDERSTAND WHY WE NEED TO HAVE PROFILE MODEL W/ ONE TO ONE RELATION 
 	THE USER. YOU SHOULD FINISH THIS SHIT BY TOMORROW...
+
+	WHAT TO DO NEXT:
+	-PLAN FIRST
+	-EXECUTE!!
 """
 
 class todo(models.Model):

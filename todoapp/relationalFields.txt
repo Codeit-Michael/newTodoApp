@@ -48,3 +48,23 @@ field of django.db.models.
 		vehicle = models.OneToOneField(Vehicle,
 			on_delete = models.CASCADE, primary_key = True)
 		car_model = models.CharField(max_length = 100)
+
+
+## "on_delete" Values
+
+-on_delete = models.CASCADE – This is the default value. It automatically deletes all 
+the related records when a record is deleted.(e.g. when an Album record is deleted all 
+the Song records related to it will be deleted)
+
+-on_delete = models.PROTECT – It blocks the deletion of a record having relation with 
+other records.(e.g. any attempt to delete an Album record will be blocked)
+
+-on_delete = models.SET_NULL – It assigns NULL to the relational field when a record is deleted, provided null = True is set.
+
+-on_delete = models.SET_DEFAULT – It assigns default values to the relational field 
+when a record is deleted, a default value has to be provided.
+
+-on_delete = models.SET() – It can either take a default value as parameter, or a 
+callable, the return value of which will be assigned to the field.
+
+-on_delete = models.DO_NOTHING – Takes no action. Its a bad practice to use this value.
