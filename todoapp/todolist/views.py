@@ -10,12 +10,13 @@ from .decorators import unauthenticated_user
 # Create your views here.
 @login_required(login_url='signin')
 def view(request):
-	# if request.user.todo.objects.all():
-	mylist = request.user.todo.objects.all()
+	print(type(request.user))
+	mylist = todo.objects.all()
 	myForm = todoForm()
 	if request.method == 'POST':
 		myForm = todoForm(request.POST)
 		if myForm.is_valid():
+			myForm.user = request.user
 			myForm.save()
 			return redirect('view')
 
@@ -24,11 +25,9 @@ def view(request):
 	return render(request, 'todolist/view.html', context)
 
 
-### NOTE: REMAKE YOUR USER CHANGES IN VIEW, NOT IN LIST
-
 @login_required(login_url='signin')
 def list(request,id):
-	mylist = request.user.todo.objects.get(id=id)
+	mylist = todo.objects.get(id=id)
 	if request.method == 'POST':
 		if request.POST.get('save'):
 			for item in mylist.item_set.all():

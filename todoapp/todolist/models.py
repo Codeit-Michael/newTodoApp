@@ -9,6 +9,11 @@ from django.contrib.auth.models import User
 	# def __str__(self):
 	# 	return self.name
 
+"""
+	NOW I HOPE WE UNDERSTAND WHY WE NEED TO HAVE PROFILE MODEL W/ ONE TO ONE RELATION 
+	THE USER. YOU SHOULD FINISH THIS SHIT BY TOMORROW...
+"""
+
 class todo(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
 	title = models.CharField(max_length=50, null=True)
