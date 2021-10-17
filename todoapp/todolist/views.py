@@ -28,7 +28,8 @@ def view(request):
 
 @login_required(login_url='signin')
 def list(request,id):
-	mylist = Todo.objects.get(id=id)
+	account = User.objects.get(username=request.user)
+	mylist = account.todo_set.get(id=id)
 	if request.method == 'POST':
 		if request.POST.get('save'):
 			for item in mylist.item_set.all():
