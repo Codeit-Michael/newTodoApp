@@ -1,23 +1,24 @@
 from django.shortcuts import render,redirect
-from .models import todo
-from .forms import todoForm,CreateUserForm
+from .models import Todo
+from .forms import TodoForm,CreateUserForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 # for the decorator we made
 from .decorators import unauthenticated_user
 
 # Create your views here.
 @login_required(login_url='signin')
 def view(request):
-	print(type(request.user))
-	mylist = todo.objects.all()
-	myForm = todoForm()
+	mylist = User.objects.get(username=request.user)
+	myForm = TodoForm()
+	myForm.user = request.user
 	if request.method == 'POST':
-		myForm = todoForm(request.POST)
+		myForm = TodoForm(request.POST)
 		if myForm.is_valid():
-			myForm.user = request.user
-			myForm.save()
+			listname = myForm.cleaned_data['title']
+			newTodo = mylist.todo_set.create(title=listname)
 			return redirect('view')
 
 	context = {'mylist':mylist ,'form':myForm}
@@ -27,7 +28,7 @@ def view(request):
 
 @login_required(login_url='signin')
 def list(request,id):
-	mylist = todo.objects.get(id=id)
+	mylist = Todo.objects.get(id=id)
 	if request.method == 'POST':
 		if request.POST.get('save'):
 			for item in mylist.item_set.all():
@@ -92,5 +93,5 @@ def signout(request):
 
 def deleteList(request):
 	mylist = request.GET.get('delThis')
-	deletelist = todo.objects.get(id=int(mylist)).delete()
+	deletelist = Todo.objects.get(id=int(mylist)).delete()
 	return redirect('view')

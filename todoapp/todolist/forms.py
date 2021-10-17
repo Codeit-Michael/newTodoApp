@@ -1,11 +1,11 @@
 from django.forms  import ModelForm
-from .models import todo #,profile
+from .models import Todo #,Profile
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-class todoForm(ModelForm):
+class TodoForm(ModelForm):
 	class Meta:
-		model = todo
+		model = Todo
 		fields = ['title']
 
 class CreateUserForm(UserCreationForm):
@@ -15,5 +15,5 @@ class CreateUserForm(UserCreationForm):
 
 # class profileForm(ModelForm):
 # 	class Meta:
-# 		model = profile
+# 		model = Profile
 # 		fields = '__all__'

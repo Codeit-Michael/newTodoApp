@@ -3,7 +3,7 @@
 
 {% block content %}
 	<form method="get" action="{% url 'delList' %}">
-		{% for x in mylist %}
+		{% for x in mylist.todo_set.all %}
 		<!-- KNOW TOMMOROW ABOUT DELETING AND IF WE NEED TO USE REQUEST METHODS -->
 			<p>><a href="/view/{{x.id}}">{{x}}</a>
 				<button name="delThis" type="submit" value="{{x.id}}">remove</button>
