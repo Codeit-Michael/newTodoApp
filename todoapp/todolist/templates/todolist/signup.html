@@ -12,6 +12,9 @@
 		<p>Note: Passwords required to have letters from A-Z, symbols like @,#, etc., and numbers from 0-9</p>
 		<button type="submit">Register Account</button>
 	</form>
+	{% for message in messages %}
+		<p style="color: red">{{message}}</p>
+	{% endfor %}
 
 	<p>Login your account <a href="{% url 'signin' %}">here</a></p>
 {% endblock %}

@@ -67,6 +67,11 @@ def signup(request):
 			user_name = user_form.cleaned_data.get('username')
 			messages.success(request,f'user "{user_name}" is successfully created!!')
 			return redirect('signin')
+		else:
+			messages.error(request, """Action Denied.. 
+				Maybe your Username has space/s or your passwords doesn't 
+				match each other""")
+			return redirect('signup')
 
 	context = {'form':user_form}
 
