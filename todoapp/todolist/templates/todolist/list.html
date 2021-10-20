@@ -1,24 +1,82 @@
-{% extends "todolist/main.html" %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
 
-{% block title %}{{mylist.name}}{% endblock %}
-
-{% block content %}
-	<form method="post" action='#'>
-		{% csrf_token %}
-		{% for item in mylist.item_set.all %}
-			{% if item.is_complete == True %}
-				<input type="checkbox" value="clicked" name="c{{item.id}}" checked>
-			{% else %}
-				<input type="checkbox" value="clicked" name="c{{item.id}}">
-			{% endif %}
-			<input type="text" value="{{item.text}}" name="i{{item.text}}">
-			<button type="submit" name="delThis" value="{{item.id}}" >remove</button>
-			<br>
-		{% endfor %}
-			<br>
-		<button type="submit" name="save" value="save">Save Changes</button>
-		<input type="text" name="newItem">
-		<button type="submit" name="addItem" value="addItem">Add Item</button>
-	</form>
-	<button onclick="window.location.href='/signout'">Logout Account</button>
-{% endblock %}
+    <style>
+      .app-container {
+        height: 100vh;
+        width: 100%;
+      }
+      .complete {
+        text-decoration: line-through;
+      }
+    </style>
+  </head>
+  <body>
+    <form method="post" action='#'>
+      {% csrf_token %}
+      <div
+        class="app-container d-flex align-items-center justify-content-center flex-column">
+        {{mylist.title}}
+        <h3>Todo App</h3>
+        <div class="d-flex align-items-center mb-3">
+          <div class="form-group mr-3 mb-0">
+            <input type="text" name="newItem" class="form-control" id="formGroupExampleInput" placeholder="Enter a task here"/>
+          </div>
+          <button type="submit" name="addItem" value="addItem" class="btn btn-primary mr-3">
+            Add
+          </button>
+          <button type="submit" name="save" value="save" class="btn btn-warning">
+            Save Changes
+          </button>
+        </div>
+        <div class="table-wrapper">
+          <table class="table table-hover table-bordered">
+            <thead>
+              <tr>
+                <th>No.</th>
+                <th>Todo item</th>
+                <th>status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in mylist.item_set.all %}
+                <tr>
+                  <td>{{forloop.counter}}</td>
+                  <td>
+                    {{item.text}}
+                  </td>
+                  {% if item.is_complete == True %}
+                    <td>Finished</td>
+                    <td>
+                      <input type="checkbox" value="clicked" name="c{{item.id}}" checked>
+                      <button type="submit" name="delThis" value="{{item.id}}" class="btn btn-danger">
+                        Delete
+                      </button>
+                    </td>
+                  {% else %}
+                    <td>In Progress</td>
+                    <td>
+                      <input type="checkbox" value="clicked" name="c{{item.id}}">
+                      <button type="submit" name="delThis" value="{{item.id}}" class="btn btn-danger">
+                        Delete
+                      </button>
+                    </td>
+                  {% endif %}
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <p>Style not mine...You can show it <a href="https://codepen.io/jagathgj/pen/ZEGXqgd">here</a>.</p>
+        </div>
+      </div>
+    </form>
+  </body>
+</html>

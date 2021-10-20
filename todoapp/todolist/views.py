@@ -33,21 +33,16 @@ def list(request,id):
 	if request.method == 'POST':
 		if request.POST.get('save'):
 			for item in mylist.item_set.all():
-				if item.text != request.POST.get(f'i{item.text}'):
-					item.text = request.POST.get(f'i{item.text}')
+				# if item.text != request.POST.get(f'i{item.text}'):
+				# 	item.text = request.POST.get(f'i{item.text}')
 				if request.POST.get(f'c{item.id}') == 'clicked':
 					item.is_complete = True
 				else:
 					item.is_complete = False
 				item.save()
-
 		elif request.POST.get('addItem'):
 			new = request.POST.get('newItem')
-			if len(new) > 2:
-				mylist.item_set.create(text=new, is_complete=False)
-			else:
-				print('INVALID')
-
+			mylist.item_set.create(text=new, is_complete=False)
 		elif request.POST.get('delThis'):
 			item_index = request.POST.get('delThis')
 			mylist.item_set.get(id=item_index).delete()
