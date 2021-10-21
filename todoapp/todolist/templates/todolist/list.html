@@ -1,12 +1,9 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-      crossorigin="anonymous"
-    />
+      rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"/>
 
     <style>
       .app-container {
@@ -21,8 +18,7 @@
   <body>
     <form method="post" action='#'>
       {% csrf_token %}
-      <div
-        class="app-container d-flex align-items-center justify-content-center flex-column">
+      <div class="app-container d-flex align-items-center justify-content-center flex-column">
         Todo App
         <h3><b>{{mylist.title}}</b></h3>
         <div class="d-flex align-items-center mb-3">
@@ -78,5 +74,6 @@
         </div>
       </div>
     </form>
+  <link rel="stylesheet" type="text/css" href="{% static 'todolist/style.css' %}">
   </body>
 </html>
