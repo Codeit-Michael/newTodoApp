@@ -15,11 +15,11 @@ def view(request):
 	myForm = TodoForm()
 	myForm.user = request.user
 	if request.method == 'POST':
-		myForm = TodoForm(request.POST)
-		if myForm.is_valid():
-			listname = myForm.cleaned_data['title']
-			newTodo = mylist.todo_set.create(title=listname)
-			return redirect('view')
+		# myForm = TodoForm(request.POST.get('newItem'))
+		# if myForm.is_valid():
+		# 	listname = myForm.cleaned_data['title']
+		newTodo = mylist.todo_set.create(title=request.POST.get('newItem'))
+		return redirect('view')
 
 	context = {'mylist':mylist ,'form':myForm}
 

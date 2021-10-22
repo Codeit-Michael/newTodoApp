@@ -1,20 +1,31 @@
-{% extends "todolist/main.html" %}
-{% block title %}My Lists{% endblock %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"/>
+	<link rel="stylesheet" type="text/css" href="{% static 'todolist/style.css' %}">
+	<title>Lists</title>
+</head>
+<body>
+	<div class="app-container d-flex align-items-center justify-content-center flex-column">
+		Todo App
+		<h3><b>{{mylist.username}}'s Account</b></h3>
+		<div class="d-flex align-items-center mb-3">
+			<div class="form-group mr-3 mb-0">
+				<form method="post" action="{% url 'view' %}">
+					{% csrf_token %}
+					<input type="text" name="newItem" class="form-control" id="formGroupExampleInput" placeholder="Enter a task here"/>
+					<button type="submit">enter</button>
+				</form>
 
-{% block content %}
-	<form method="get" action="{% url 'delList' %}">
-		{% for x in mylist.todo_set.all %}
-		<!-- KNOW TOMMOROW ABOUT DELETING AND IF WE NEED TO USE REQUEST METHODS -->
-			<p>><a href="/view/{{x.id}}">{{x}}</a>
-				<button name="delThis" type="submit" value="{{x.id}}">remove</button>
-			</p>
-		{% endfor %}
-	</form>
-	<br>
-	<form method="post" action="{% url 'view' %}">
-		{% csrf_token %}
-		{{form}}
-		<button type="submit">enter</button>
-	</form>
-	<button onclick="window.location.href='/signout'">Logout Account</button>
-{% endblock %}
+		<form method="get" action="{% url 'delList' %}">
+			{% for x in mylist.todo_set.all %}
+			<!-- KNOW TOMMOROW ABOUT DELETING AND IF WE NEED TO USE REQUEST METHODS -->
+				<p>><a href="/view/{{x.id}}">{{x}}</a>
+					<button name="delThis" type="submit" value="{{x.id}}">remove</button>
+				</p>
+			{% endfor %}
+		</form>
+		<button onclick="window.location.href='/signout'">Logout Account</button>
+</body>
+</html>
