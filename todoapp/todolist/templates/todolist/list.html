@@ -34,7 +34,7 @@
         </div>
         <div class="table-wrapper">
           <table class="table table-hover table-bordered">
-            <thead>
+            <thead style="background-color: #ffa701;">
               <tr>
                 <th>No.</th>
                 <th>Todo item</th>
@@ -42,7 +42,7 @@
                 <th>Actions</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody style="background-color: white;">
               {% for item in mylist.item_set.all %}
                 <tr>
                   <td>{{forloop.counter}}</td>
