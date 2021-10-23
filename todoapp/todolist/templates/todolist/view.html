@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"/>
-	<link rel="stylesheet" type="text/css" href="{% static 'todolist/style.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'todolist/list.css' %}">
 	<title>Lists</title>
 </head>
 <body>
@@ -11,21 +11,35 @@
 		Todo App
 		<h3><b>{{mylist.username}}'s Account</b></h3>
 		<div class="d-flex align-items-center mb-3">
-			<div class="form-group mr-3 mb-0">
-				<form method="post" action="{% url 'view' %}">
-					{% csrf_token %}
-					<input type="text" name="newItem" class="form-control" id="formGroupExampleInput" placeholder="Enter a task here"/>
-					<button type="submit">enter</button>
+			<form method="post" action="{% url 'view' %}">
+				{% csrf_token %}
+				<div class="form-group mr-3 mb-0">
+					<input type="text" name="newItem" class="form-control" id="formGroupExampleInput" placeholder="Enter a list name here"/>
+				</div>
+				<button type="submit" class="btn btn-primary mr-3">Add</button>
+			</form>
+		</div>
+		<div class="table-wrapper">
+			<table class="table table-hover table-bordered">
+			<thead style="background-color: #ffa701;">
+				<tr>
+					<th>Todolists</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody style="background-color: white;">
+				<form method="get" action="{% url 'delList' %}">
+					{% for x in mylist.todo_set.all %}
+						<tr>
+							<td><a href="/view/{{x.id}}">{{x}}</a></td>
+							<td><button name="delThis" type="submit" value="{{x.id}}" 	class="btn btn-danger">Delete</button></td>
+						</tr>
+					{% endfor %}
 				</form>
-
-		<form method="get" action="{% url 'delList' %}">
-			{% for x in mylist.todo_set.all %}
-			<!-- KNOW TOMMOROW ABOUT DELETING AND IF WE NEED TO USE REQUEST METHODS -->
-				<p>><a href="/view/{{x.id}}">{{x}}</a>
-					<button name="delThis" type="submit" value="{{x.id}}">remove</button>
-				</p>
-			{% endfor %}
-		</form>
-		<button onclick="window.location.href='/signout'">Logout Account</button>
+			</tbody>
+			</table>
+		</div>
+		<button onclick="window.location.href='/signout'" class="btn btn-warning">Logout Account</button>
+	</div>
 </body>
 </html>

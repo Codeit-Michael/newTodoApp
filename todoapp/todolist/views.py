@@ -15,9 +15,6 @@ def view(request):
 	myForm = TodoForm()
 	myForm.user = request.user
 	if request.method == 'POST':
-		# myForm = TodoForm(request.POST.get('newItem'))
-		# if myForm.is_valid():
-		# 	listname = myForm.cleaned_data['title']
 		newTodo = mylist.todo_set.create(title=request.POST.get('newItem'))
 		return redirect('view')
 
@@ -33,8 +30,6 @@ def list(request,id):
 	if request.method == 'POST':
 		if request.POST.get('save'):
 			for item in mylist.item_set.all():
-				# if item.text != request.POST.get(f'i{item.text}'):
-				# 	item.text = request.POST.get(f'i{item.text}')
 				if request.POST.get(f'c{item.id}') == 'clicked':
 					item.is_complete = True
 				else:
