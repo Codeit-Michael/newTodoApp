@@ -7,17 +7,21 @@
 	<title>Lists</title>
 </head>
 <body>
+	<!-- icon's link:https://www.flaticon.com/free-icon/home_25694 -->
+	<a href="{% url 'view' %}"><img src="{% static 'todolist/home.png' %}" style="position: fixed; left:3px;top:5px;"></a>
+	<!-- icon's link:https://www.flaticon.com/premium-icon/log-out_5565346?term=log%20out&page=1&position=10&page=1&position=10&related_id=5565346&origin=search -->
+	<a href="{% url 'signout' %}"><img src="{% static 'todolist/log-out.png' %}" style="position: fixed; left:3px;top: 40px"></a>
+	<form method="post" action="{% url 'view' %}">
+		{% csrf_token %}
 	<div class="app-container d-flex align-items-center justify-content-center flex-column">
 		Todo App
 		<h3><b>{{mylist.username}}'s Account</b></h3>
 		<div class="d-flex align-items-center mb-3">
-			<form method="post" action="{% url 'view' %}">
-				{% csrf_token %}
-				<div class="form-group mr-3 mb-0">
-					<input type="text" name="newItem" class="form-control" id="formGroupExampleInput" placeholder="Enter a list name here"/>
-				</div>
-				<button type="submit" class="btn btn-primary mr-3">Add</button>
-			</form>
+			<div class="form-group mr-3 mb-0">
+				<input type="text" name="newItem" class="form-control" id="formGroupExampleInput" placeholder="Enter a list name here"/>
+			</div>
+			<button type="submit" class="btn btn-primary mr-3">Add</button>
+	</form>
 		</div>
 		<div class="table-wrapper">
 			<table class="table table-hover table-bordered">
@@ -39,7 +43,8 @@
 			</tbody>
 			</table>
 		</div>
-		<button onclick="window.location.href='/signout'" class="btn btn-warning">Logout Account</button>
 	</div>
+</script>
 </body>
+<!-- Download this template here: https://codepen.io/jagathgj/pen/ZEGXqgd -->
 </html>

@@ -4,8 +4,13 @@
   <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"/>
     <link rel="stylesheet" type="text/css" href="{% static 'todolist/list.css' %}">
+    <title>{{mylist.title}}</title>
   </head>
   <body>
+  <!-- icon's link:https://www.flaticon.com/free-icon/home_25694 -->
+  <a href="{% url 'view' %}"><img src="{% static 'todolist/home.png' %}" style="position: fixed; left:3px;top:5px;"></a>
+  <!-- icon's link:https://www.flaticon.com/premium-icon/log-out_5565346?term=log%20out&page=1&position=10&page=1&position=10&related_id=5565346&origin=search -->
+  <a href="{% url 'signout' %}"><img src="{% static 'todolist/log-out.png' %}" style="position: fixed; left:3px;top: 40px"></a>
     <form method="post" action='#'>
       {% csrf_token %}
       <div class="app-container d-flex align-items-center justify-content-center flex-column">
@@ -60,9 +65,9 @@
               {% endfor %}
             </tbody>
           </table>
-          <p>Style not mine...You can show it <a href="https://codepen.io/jagathgj/pen/ZEGXqgd">here</a>.</p>
         </div>
       </div>
     </form>
   </body>
+  <!-- Download this template here: https://codepen.io/jagathgj/pen/ZEGXqgd -->
 </html>
