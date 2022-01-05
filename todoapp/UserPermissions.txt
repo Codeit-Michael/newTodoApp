@@ -15,6 +15,12 @@ Making our own decorator
 
 -This decorator replaces our code on signin() and signup() that questions about if user is authenticated, it redirects you on home page instead to login page.
 
+	def my_view(request):
+	    if not request.user.is_authenticated:
+		return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+
+-The my_view() above is same as unauthenticated_user
+
 -Now on our views.py, import the decorator we make:
 
 	from .decorators import unauthenticated_user
